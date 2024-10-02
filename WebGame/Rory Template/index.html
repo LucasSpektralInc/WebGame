@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Own Adventure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Include React and ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  
+  <!-- Babel for JSX compilation -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- React code directly in HTML -->
+  <script type="text/babel">
+    const App = () => {
+      const [storyStep, setStoryStep] = React.useState('start');
+
+      const adventureData = {
+        start: {
+          text: 'You wake up in a room with no windows. There is a door to the left and a door to the right.',
+          options: [
+            { text: 'Open the left door', nextStep: 'leftPath' },
+            { text: 'Open the right door', nextStep: 'rightPath' }
+          ]
+        },
+        leftPath: {
+          text: 'You open the door and encounter a Kun-Fu Panda! What do you do?',
+          options: [
+            { text: 'Run away', nextStep: 'runAway' },
+            { text: 'Go Back', nextStep: 'start' },
+            { text: 'Fight the Panda', nextStep: 'fightPanda' }
+          ]
+        },
+        rightPath: {
+          text: 'You are in a field full of cows',
+          options: [
+            { text: 'Milk a cow', nextStep: 'milkCow' },
+            { text: 'Ignore the chest', nextStep: 'ignoreChest' }
+          ]
+        },
+        runAway: { text: 'You run away safely. The End.', options: [] },
+        fightPanda: { text: 'With a swift 5 point palm exploding heart technique The Panda defeats you. The End.', options: [] },
+        openChest: { text: 'You found a treasure! The End.', options: [] },
+        ignoreChest: { text: 'You walk away from the treasure. The End.', options: [] }
+      };
+
+      const currentStep = adventureData[storyStep];
+
+      return (
+        <div>
+          <h1>Choose Your Own Adventure</h1>
+          <p>{currentStep.text}</p>
+          {currentStep.options.length > 0 ? (
+            <div>
+              {currentStep.options.map((option, index) => (
+                <button key={index} onClick={() => setStoryStep(option.nextStep)}>
+                  {option.text}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <button onClick={() => setStoryStep('start')}>Restart</button>
+          )}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('app'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choose Your Own Adventure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .choice {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choose Your Own Adventure</h1>
+    <p id="story-text">You are standing at the entrance of a dark cave. Do you want to enter?</p>
+
+    <div id="choices">
+        <button class="choice" onclick="goToCave()">Enter the cave</button>
+        <button class="choice" onclick="runAway()">Run away</button>
+    </div>
+
+    <script>
+        
+        function goToCave() {
+            document.getElementById("story-text").innerHTML = "You walk into the cave and find a treasure chest. Do you open it?";
+            document.getElementById("choices").innerHTML = `
+                <button class="choice" onclick="openChest()">Open the chest</button>
+                <button class="choice" onclick="leaveChest()">Leave the chest</button>
+            `;
+        }
+
+        function runAway() {
+            document.getElementById("story-text").innerHTML = "You run away safely but miss out on the adventure.";
+            document.getElementById("choices").innerHTML = `<button class="choice" onclick="restart()">Restart</button>`;
+        }
+
+        function openChest() {
+            document.getElementById("story-text").innerHTML = "You open the chest and find a pile of gold!";
+            document.getElementById("choices").innerHTML = `<button class="choice" onclick="restart()">Restart</button>`;
+        }
+
+        function leaveChest() {
+            document.getElementById("story-text").innerHTML = "You decide to leave the chest alone and exit the cave.";
+            document.getElementById("choices").innerHTML = `<button class="choice" onclick="restart()">Restart</button>`;
+        }
+
+        function restart() {
+            document.getElementById("story-text").innerHTML = "You are standing at the entrance of a dark cave. Do you want to enter?";
+            document.getElementById("choices").innerHTML = `
+                <button class="choice" onclick="goToCave()">Enter the cave</button>
+                <button class="choice" onclick="runAway()">Run away</button>
+            `;
+        }
+    </script>
+</body>
+</html>
